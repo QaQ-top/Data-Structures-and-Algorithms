@@ -3,12 +3,8 @@ import { createApp } from '@vue/runtime-dom';
 import './style.sass';
 const routes = [
   {
-    name: '首页',
-    path: 'home'
-  },
-  {
-    name: '权限',
-    path: 'auth'
+    name: '链表',
+    path: 'linked-list'
   },
 ]
 
