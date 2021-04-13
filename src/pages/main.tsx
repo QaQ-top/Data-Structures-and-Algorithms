@@ -13,7 +13,7 @@ const Router = {
     return <ul class='nav'>
       {
         routes.map(i => {
-          return <li class="nav_item" {...{key: i.path}} > // 如果出现 attrs="[Object Object]" 使用扩展运算符添加属性
+          return <li class="nav_item" {...{key: i.path}} > {/* 如果出现 attrs="[Object Object]" 使用扩展运算符添加属性 */}
             <a {...{href: i.path}}>{i.name}</a>
           </li>
         })

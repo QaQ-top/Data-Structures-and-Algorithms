@@ -7,7 +7,7 @@ const fs = require('fs');
 function getRoutes() {
   const routes = fs.readdirSync(path.resolve(__dirname, '../src/pages')).filter(i => /^[^\.]+$/.test(i));
   const entry = {
-    'global': './src/.assets/script/index',
+    'global': './src/assets/script/index',
     'main': './src/pages/main',
   }, html = [
     new Html({
