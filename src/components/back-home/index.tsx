@@ -1,9 +1,6 @@
-import { h, Fragment, createApp, defineComponent } from '@vue/runtime-dom';
-// NOT GO
-console.log(Fragment)
+import { h, createApp, defineComponent } from '@vue/runtime-dom';
 const Component = defineComponent({
   setup: () => {
-    console.log(h)
     return () => <a 
       {
         ...{

@@ -1,3 +1,10 @@
+/**
+ * NOT GO
+ * 排序
+ * 查找 最小最大数 
+ */
+
+
 import Comparator, { Compare } from '@/utils/comparator';
 /**
  * @description 链表节点
@@ -21,25 +28,22 @@ export default class LinkedList {
   head: null | LinkedListNode;
   tail: null | LinkedListNode;
   compare: Comparator;
-  constructor(comparatorFunction: Compare) {
+  constructor(comparatorFunction?: Compare) {
     this.head = null;
     this.tail = null;
     this.compare = new Comparator(comparatorFunction);
   }
 
-  static of(...array: any[]) {
-    let linked = null;
-    [...array].reverse().reduce((prev, i, n) => {
-      if(!prev) {
-        linked = new LinkedListNode(i);
-        return linked;
-      } else {
-        return linked = new LinkedListNode(i, prev);
-      };
-    }, linked);
+  // 生成同判断条件的链表
+  of(...array: any[]) {
+    let linked = new LinkedList(this.compare.compare);
+    for (let index = 0; index < array.length; index++) {
+      linked.push(array[index]);
+    }
     return linked;
   }
 
+  // 头部添加
   unshift(value: number) {
     const newNode = new LinkedListNode(value);
     if (!this.tail) {
@@ -52,6 +56,7 @@ export default class LinkedList {
     return this;
   }
 
+  // 尾部添加
   push(value: number) {
     const newNode = new LinkedListNode(value);
     if (!this.head) {
@@ -65,6 +70,7 @@ export default class LinkedList {
     return this;
   }
 
+  // 头部删除
   shift() {
     if(!this.head) return null;
     const deleteHead = this.head;
@@ -77,6 +83,7 @@ export default class LinkedList {
     return deleteHead;
   }
 
+  // 尾部删除
   pop() {
     const deletedTail = this.tail;
     // 如果只有一个节点 直接清除链表
@@ -99,7 +106,7 @@ export default class LinkedList {
     return deletedTail;
   }
 
-
+  // 删除链表某个值
   delete(value: number) {
     if (!this.head) return null;
     let deletedNode: LinkedListNode | null = null;
@@ -134,12 +141,14 @@ export default class LinkedList {
     return deletedNode;
   }
 
+  // 清空链表
   clear() {
     this.head = null;
     this.tail = null;
     return true;
   }
 
+  // 查找链表
   find(callback: (currentNode: LinkedListNode, index: number) => boolean) {
     // 无长度
     if (!this.head) return undefined;
@@ -159,6 +168,7 @@ export default class LinkedList {
     return undefined
   }
 
+  // 链表转数组
   toArray() {
    const array = [];
    let currentNode = this.head;
@@ -169,7 +179,8 @@ export default class LinkedList {
    return array;
   }
 
-  toString(callback?: Function) {
+  // 链表转字符串
+  toString(callback?: () => string) {
     return this.toArray().map(i => i.toString(callback));
   }
 
@@ -187,6 +198,7 @@ export default class LinkedList {
   //   }
   // }
 
+  // 链表反向 重点: 将上一次循环的结果存储 设置为当前循环节点的下一个节点
   reverse() {
     /**
      * cur = 1 2 3 4 5
@@ -215,14 +227,14 @@ export default class LinkedList {
      */
     let currentNode = this.head;
     let prevNode = null;
+    let nextNode = null;
     while(currentNode) {
       // 存储后续链表节点
-      let nextNode = null;
       nextNode = currentNode.next; 
-
       // 在当前节点断开后续节, 在将上一次存储的节点加到当前节点的后面
       currentNode.next = prevNode; 
       // 将当前节点存储
+
       prevNode = currentNode; 
 
       // 将当前遍历的替换成 刚刚断开的后续链表
@@ -253,5 +265,6 @@ linked.reverse();
 
 console.log(linked.toString())
 
-console.log(LinkedList.of(1,2,7,8));
+let l = linked.of(1,2,7,8);
+console.log(l.compare.compare === linked.compare.compare);
 

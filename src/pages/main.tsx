@@ -4,7 +4,23 @@ import './style.sass';
 const routes = [
   {
     name: '链表',
-    path: 'linked-list'
+    path: 'linked-list',
+    description: '重点: 如何删除某个节点，如何反转整个链表'
+  },
+  {
+    name: '双向链表',
+    path: 'doubly-linked-list',
+    description: '重点: 如何删除某个节点，如何反转整个链表'
+  },
+  {
+    name: '队列',
+    path: 'queue',
+    description: '重点: 队列与链表很相似（头部出 尾部进）'
+  },
+  {
+    name: '栈',
+    path: 'stack',
+    description: '重点: 尾部进 尾部出'
   },
 ]
 
@@ -15,6 +31,10 @@ const Router = {
         routes.map(i => {
           return <li class="nav_item" {...{key: i.path}} > {/* 如果出现 attrs="[Object Object]" 使用扩展运算符添加属性 */}
             <a {...{href: i.path}}>{i.name}</a>
+            &nbsp;&nbsp;&nbsp;
+            <span style={{fontSize: '10px', color: 'red'}}>{i.description}</span>
+            <br />
+            <br />
           </li>
         })
       }

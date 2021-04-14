@@ -10,7 +10,7 @@ export default class Comparator {
    * @param {Function} compareFunction
    * @memberof Comparator
    */
-  constructor(compareFunction: Compare) {
+  constructor(compareFunction?: Compare) {
     this.compare = compareFunction || Comparator.defaultCompareFunction;
   }
 
