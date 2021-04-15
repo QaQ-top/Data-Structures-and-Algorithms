@@ -22,6 +22,11 @@ const routes = [
     path: 'stack',
     description: '重点: 尾部进 尾部出'
   },
+  {
+    name: '哈希表',
+    path: 'stack',
+    description: '重点: 多链'
+  },
 ]
 
 const Router = {
