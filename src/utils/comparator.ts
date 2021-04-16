@@ -1,7 +1,8 @@
-export type Compare = (a: any, b: any) => -1 | 0 | 1;
+export type Compare<T> = (a: T, b: T) => -1 | 0 | 1;
 
-export default class Comparator {
-  compare: Compare
+
+export default class Comparator<T> {
+  compare: Compare<T>
 
   /**
    * 自定义比较函数
@@ -10,8 +11,8 @@ export default class Comparator {
    * @param {Function} compareFunction
    * @memberof Comparator
    */
-  constructor(compareFunction?: Compare) {
-    this.compare = compareFunction || Comparator.defaultCompareFunction;
+  constructor(compareFunction: Compare<T>) {
+    this.compare = compareFunction;
   }
 
   /**
@@ -24,12 +25,6 @@ export default class Comparator {
    * @returns -1 | 0 | 1
    * @memberof Comparator
    */
-  static defaultCompareFunction(a: number | string, b: number | string) {
-    if (a === b) {
-      return 0;
-    }
-    return a < b ? -1 : 1;
-  }
 
   /**
    * 比较是否相等
@@ -37,7 +32,7 @@ export default class Comparator {
    * @param {*} b
    * @return {boolean}
    */
-  equal(a: any, b: any) {
+  equal(a: T, b: T) {
     return this.compare(a, b) === 0;
   }
 
@@ -47,7 +42,7 @@ export default class Comparator {
    * @param {*} b
    * @return {boolean}
    */
-  lessThan(a: any, b: any) {
+  lessThan(a: T, b: T) {
     return this.compare(a, b) < 0;
   }
 
@@ -57,7 +52,7 @@ export default class Comparator {
    * @param {*} b
    * @return {boolean}
    */
-  greaterThan(a: any, b: any) {
+  greaterThan(a: T, b: T) {
     return this.compare(a, b) > 0;
   }
 
@@ -67,7 +62,7 @@ export default class Comparator {
    * @param {*} b
    * @return {boolean}
    */
-   lessThanOrEqual(a: any, b: any) {
+   lessThanOrEqual(a: T, b: T) {
     return this.lessThan(a, b) || this.equal(a, b);
   }
 
@@ -77,7 +72,7 @@ export default class Comparator {
    * @param {*} b
    * @return {boolean}
    */
-  greaterThanOrEqual(a: any, b: any) {
+  greaterThanOrEqual(a: T, b: T) {
     return this.greaterThan(a, b) || this.equal(a, b);
   }
 

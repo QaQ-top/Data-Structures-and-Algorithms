@@ -24,8 +24,13 @@ const routes = [
   },
   {
     name: '哈希表',
-    path: 'stack',
-    description: '重点: 多链'
+    path: 'hash-table',
+    description: '重点: 多链, Set时生成hash映射'
+  },
+  {
+    name: '堆',
+    path: 'heap',
+    description: '重点: '
   },
 ]
 

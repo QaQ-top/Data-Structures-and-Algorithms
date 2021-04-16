@@ -32,8 +32,8 @@ class DoublyLinkedListNode<T> {
 class DoublyLinkedList<T> {
   head: null | DoublyLinkedListNode<T>;
   tail: null | DoublyLinkedListNode<T>;
-  compare: Comparator;
-  constructor(comparatorFunction?: (a: DoublyLinkedListNode<T>, b: DoublyLinkedListNode<T>) => 0 | -1 | 1) {
+  compare: Comparator<T>;
+  constructor(comparatorFunction: Compare<T>) {
     this.head = null;
     this.tail = null;
     this.compare = new Comparator(comparatorFunction);
@@ -188,7 +188,7 @@ class DoublyLinkedList<T> {
     let deletedNode = null;
     let currentNode: Adjacent<T> = this.head;
     while (currentNode) {
-      if (this.compare.equal(currentNode, new DoublyLinkedListNode(value))) {
+      if (this.compare.equal(currentNode.value, value)) {
         deletedNode = currentNode;
 
         // 存储 上 下 两节点
@@ -221,7 +221,7 @@ class DoublyLinkedList<T> {
   }
 
   // 搜索
-  find(callback: (node: DoublyLinkedListNode<T>, index: number) => boolean) {
+  find(callback: (node: T, index: number) => boolean) {
     if (!this.head) {
       return null;
     }
@@ -229,7 +229,7 @@ class DoublyLinkedList<T> {
     let currentNode: Adjacent<T> = this.head;
     let index = 0;
     while(currentNode) {
-      if(callback(currentNode, index)) {
+      if(callback(currentNode.value, index)) {
         return currentNode;
       }
       // 进入下一个节点
@@ -288,10 +288,10 @@ class DoublyLinkedList<T> {
 
 
 const doubly = new DoublyLinkedList<number>((a, b) => {
-  if (a.value === b.value) {
+  if (a === b) {
     return 0
   }
-  return a.value < b.value ? -1 : 1
+  return a < b ? -1 : 1
 });
 
 

@@ -1,10 +1,10 @@
 import LinkedList from './utils/linked';
 
-const dom = new LinkedList((a, b) => {
-  if (a.value === b.value) {
+const dom = new LinkedList<HTMLElement>((a, b) => {
+  if (a === b) {
     return 0;
   }
-  return a.value < b.value ? -1 : 1;
+  return a < b ? -1 : 1;
 });
 
 console.log(dom)

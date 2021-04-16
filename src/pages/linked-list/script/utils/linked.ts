@@ -3,8 +3,6 @@
  * 排序
  * 查找 最小最大数 
  */
-
-
 import Comparator, { Compare } from '@/utils/comparator';
 /**
  * @description 链表节点
@@ -12,10 +10,10 @@ import Comparator, { Compare } from '@/utils/comparator';
  * @date 2021-04-13
  * @class LinkedListNode
  */
-class LinkedListNode {
-  value: number;
-  next: null | LinkedListNode
-  constructor(value: number, next = null) {
+class LinkedListNode<T> {
+  value: T;
+  next: null | LinkedListNode<T>
+  constructor(value: T, next = null) {
     this.value = value;
     this.next = next;
   }
@@ -24,11 +22,13 @@ class LinkedListNode {
   }
 };
 
-export default class LinkedList {
-  head: null | LinkedListNode;
-  tail: null | LinkedListNode;
-  compare: Comparator;
-  constructor(comparatorFunction?: Compare) {
+type NextNode<T> =  null | LinkedListNode<T>;
+
+export default class LinkedList<T> {
+  head: NextNode<T>;
+  tail: NextNode<T>;
+  compare: Comparator<T>;
+  constructor(comparatorFunction: Compare<T>) {
     this.head = null;
     this.tail = null;
     this.compare = new Comparator(comparatorFunction);
@@ -44,7 +44,7 @@ export default class LinkedList {
   }
 
   // 头部添加
-  unshift(value: number) {
+  unshift(value: T) {
     const newNode = new LinkedListNode(value);
     if (!this.tail) {
       this.tail = newNode;
@@ -57,7 +57,7 @@ export default class LinkedList {
   }
 
   // 尾部添加
-  push(value: number) {
+  push(value: T) {
     const newNode = new LinkedListNode(value);
     if (!this.head) {
       this.head = this.tail = newNode;
@@ -107,13 +107,14 @@ export default class LinkedList {
   }
 
   // 删除链表某个值
-  delete(value: number) {
+  delete(value: T) {
     if (!this.head) return null;
-    let deletedNode: LinkedListNode | null = null;
+
+    let deletedNode: LinkedListNode<T> | null = null;
 
     // 如果第一就是要删除的，我们直接让当前第一个等于下一个就好了
     // 然后再次循环判断
-    while (this.head && this.compare.equal(this.head, { value })) {
+    while (this.head && this.compare.equal(this.head.value, value)) {
       deletedNode = this.head;
       this.head = this.head.next;
     }
@@ -122,7 +123,7 @@ export default class LinkedList {
     let currentNode = this.head;
     if (currentNode) {
       while (currentNode?.next) {
-        if (this.compare.equal(currentNode?.next, { value })) {
+        if (this.compare.equal(currentNode.next.value, value)) {
           // 先将要删除的存储
           deletedNode = currentNode.next;
           // 将下个删除，并且链接后续节点
@@ -134,7 +135,11 @@ export default class LinkedList {
       }
     }
     // 判断是否需要更换尾部对链表最后节点的引用
-    if (this.compare.equal(this.tail, value)) {
+    if (this.tail) {
+      if(this.compare.equal(this.tail.value, value)) {
+        this.tail = currentNode;
+      }
+    }else {
       this.tail = currentNode;
     }
 
@@ -149,7 +154,7 @@ export default class LinkedList {
   }
 
   // 查找链表
-  find(callback: (currentNode: LinkedListNode, index: number) => boolean) {
+  find(callback: (currentNode: T, index: number) => boolean) {
     // 无长度
     if (!this.head) return undefined;
     // 当前节点
@@ -158,11 +163,11 @@ export default class LinkedList {
     let index = 0;
     while (currentNode) {
       // 回调函数返回 true 结束循环
-      if (callback(currentNode, index)) {
+      if (callback(currentNode.value, index)) {
         return currentNode;
       }
       // 进入下一个节点
-      currentNode = currentNode.next as LinkedListNode;
+      currentNode = currentNode.next as LinkedListNode<T>;
       ++index;
     }
     return undefined
@@ -249,20 +254,21 @@ export default class LinkedList {
 
 }
 
-const linked = new LinkedList((a: LinkedListNode, b: LinkedListNode) => {
-  if (a.value === b.value) {
+const linked = new LinkedList<number>((a, b) => {
+  if (a === b) {
     return 0;
   }
-  return a.value < b.value ? -1 : 1;
+  return a < b ? -1 : 1;
 });
 
 linked.push(3);
 linked.push(1);
 linked.push(2);
 linked.unshift(45)
-// linked.shift()
+linked.shift()
 linked.reverse();
 
+console.log(linked.delete(45))
 console.log(linked.toString())
 
 let l = linked.of(1,2,7,8);
