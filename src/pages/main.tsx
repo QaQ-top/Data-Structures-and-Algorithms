@@ -30,7 +30,7 @@ const routes = [
   {
     name: '堆',
     path: 'heap',
-    description: '重点: '
+    description: '重点: heapUp heapDown 这两个核心函数'
   },
 ]
 

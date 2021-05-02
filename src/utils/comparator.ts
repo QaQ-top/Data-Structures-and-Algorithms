@@ -27,7 +27,7 @@ export default class Comparator<T> {
    */
 
   /**
-   * 比较是否相等
+   * @function 比较是否相等
    * @param {*} a
    * @param {*} b
    * @return {boolean}
@@ -37,7 +37,7 @@ export default class Comparator<T> {
   }
 
    /**
-   * 是否小于
+   * @function 是否小于
    * @param {*} a
    * @param {*} b
    * @return {boolean}
@@ -47,7 +47,7 @@ export default class Comparator<T> {
   }
 
   /**
-   * 是否大于
+   * @function 是否大于
    * @param {*} a
    * @param {*} b
    * @return {boolean}
@@ -57,7 +57,7 @@ export default class Comparator<T> {
   }
 
   /**
-   * 小于等于
+   * @function 小于等于
    * @param {*} a
    * @param {*} b
    * @return {boolean}
@@ -67,7 +67,7 @@ export default class Comparator<T> {
   }
 
   /**
-   * 大于等于
+   * @function 大于等于
    * @param {*} a
    * @param {*} b
    * @return {boolean}
@@ -76,8 +76,8 @@ export default class Comparator<T> {
     return this.greaterThan(a, b) || this.equal(a, b);
   }
 
-   /**
-   * 颠倒顺序比较
+  /**
+   * @function 颠倒顺序比较
    */
   reverse() {
     const compareOriginal = this.compare;
