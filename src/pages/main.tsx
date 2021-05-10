@@ -3,6 +3,11 @@ import { createApp } from '@vue/runtime-dom';
 import './style.sass';
 const routes = [
   {
+    name: 'Vue Effect',
+    path: 'effect',
+    description: '重点: 依赖收集'
+  },
+  {
     name: '链表',
     path: 'linked-list',
     description: '重点: 如何删除某个节点，如何反转整个链表'
