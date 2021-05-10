@@ -3,6 +3,10 @@ import { createApp } from '@vue/runtime-dom';
 import './style.sass';
 const routes = [
   {
+    name: '参考学习',
+    path: 'https://github.com/trekhleb/javascript-algorithms/blob/83357075c4698f487af733e6e0bf9567ba94c266/src/data-structures'
+  },
+  {
     name: 'Vue Effect',
     path: 'effect',
     description: '重点: 依赖收集'
@@ -35,7 +39,7 @@ const routes = [
   {
     name: '堆',
     path: 'heap',
-    description: '重点: '
+    description: '重点: heapUp heapDown 这两个核心函数'
   },
 ]
 
@@ -47,7 +51,7 @@ const Router = {
           return <li class="nav_item" {...{key: i.path}} > {/* 如果出现 attrs="[Object Object]" 使用扩展运算符添加属性 */}
             <a {...{href: i.path}}>{i.name}</a>
             &nbsp;&nbsp;&nbsp;
-            <span style={{fontSize: '10px', color: 'red'}}>{i.description}</span>
+            <span style={{fontSize: '10px', color: 'red'}}>{i?.description}</span>
             <br />
             <br />
           </li>

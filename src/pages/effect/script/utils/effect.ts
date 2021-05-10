@@ -1,6 +1,8 @@
 const targetMap = new WeakMap<object, Map<string | symbol, Set<EffectInternal>>>();
 const effecStack: EffectInternal[] = [];
 
+
+
 export const track = (target: object, key: string | symbol) => {
   const effect = effecStack[0];
   if(effect) {
